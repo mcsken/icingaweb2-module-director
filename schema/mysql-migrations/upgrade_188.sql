@@ -1,10 +1,11 @@
 ALTER TABLE director_activity_log
-ADD UNIQUE INDEX idx_checksum (checksum);
+DROP INDEX checksum,
+ADD UNIQUE INDEX checksum (checksum);
 
 ALTER TABLE director_generated_config
-ADD CONSTRAINT fk_director_generated_config_activity
+ADD CONSTRAINT director_generated_config_activity
     FOREIGN KEY (last_activity_checksum)
-    REFERENCES director_activity_log(checksum)
+    REFERENCES director_activity_log (checksum)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT;
 

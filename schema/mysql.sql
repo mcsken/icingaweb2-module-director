@@ -46,8 +46,7 @@ CREATE TABLE director_activity_log (
   INDEX search_idx (object_name),
   INDEX search_idx2 (object_type(32), object_name(64), change_time),
   INDEX search_author (author),
-  INDEX checksum (checksum),
-  UNIQUE INDEX idx_checksum (checksum)
+  UNIQUE INDEX checksum (checksum)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE director_activity_log_remark (
@@ -114,10 +113,9 @@ CREATE TABLE director_generated_config (
   first_activity_checksum VARBINARY(20) NOT NULL,
   last_activity_checksum VARBINARY(20) NOT NULL,
   PRIMARY KEY (checksum),
-  INDEX idx_checksum (checksum),
-  CONSTRAINT fk_director_generated_config_activity
+  CONSTRAINT director_generated_config_activity
     FOREIGN KEY (last_activity_checksum)
-    REFERENCES director_activity_log(checksum)
+    REFERENCES director_activity_log (checksum)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
